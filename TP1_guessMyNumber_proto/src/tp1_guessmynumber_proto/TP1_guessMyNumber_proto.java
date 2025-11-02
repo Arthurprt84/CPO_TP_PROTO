@@ -28,17 +28,17 @@ public class TP1_guessMyNumber_proto {
         System.out.print("Votre choix : ");
         int diff = sc.nextInt();
 
-        int max = 100;                    // borne max incluse
+        int max = 100;                    
         int maxEssais = Integer.MAX_VALUE;
         boolean indicesRenforces = false;
 
-        if (diff == 1) {              // Facile
+        if (diff == 1) {              
             max = 50;
             indicesRenforces = true;
-        } else if (diff == 3) {       // Difficile
+        } else if (diff == 3) {       
             max = 100;
             maxEssais = 7;
-        } // sinon, Normal par défaut
+        } 
 
         int secret = alea.nextInt(max + 1);
         int essais = 0;
@@ -58,7 +58,7 @@ public class TP1_guessMyNumber_proto {
                 break;
             }
 
-            // Messages d'aide
+            
             boolean tropPetit = x < secret;
             String msg = tropPetit ? "Trop petit !" : "Trop grand !";
 
@@ -71,7 +71,7 @@ public class TP1_guessMyNumber_proto {
 
             System.out.println(msg);
 
-            // Gestion des essais en mode difficile
+           
             if (essais >= maxEssais) {
                 System.out.println("Dommage… Vous avez épuisé vos essais. Le nombre était " + secret + ".");
                 break;
