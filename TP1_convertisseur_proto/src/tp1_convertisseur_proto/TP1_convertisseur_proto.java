@@ -71,7 +71,7 @@ public class TP1_convertisseur_proto {
         sc.close();
     }
 
-    // --- Méthodes de conversion ---
+   
 
     static double CelciusVersKelvin(double tCelcius) {
         return tCelcius + 273.15;
