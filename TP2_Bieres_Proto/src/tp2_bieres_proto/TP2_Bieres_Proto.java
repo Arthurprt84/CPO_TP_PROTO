@@ -15,17 +15,25 @@ public class TP2_Bieres_Proto {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-BouteilleBiere uneBiere = new BouteilleBiere() ;
-uneBiere.Nom = "Cuvée des trolls";
-uneBiere.degreAlcool = 7.0 ;
-uneBiere.brasserie = "Dubuisson";
-uneBiere.ouverte= false ; 
-uneBiere.lireEtiquette();
-uneBiere.Nom = "Leffe";
-uneBiere.degreAlcool = 6.6 ;
-uneBiere.brasserie = "Abbaye de Leffe";
-uneBiere.ouverte= false ; 
-uneBiere.lireEtiquette();
+ BouteilleBiere uneBiere = new BouteilleBiere("Cuvée des trolls", 7.0, "Dubuisson");
+        BouteilleBiere biere2 = new BouteilleBiere("Leffe", 6.6, "Abbaye de Leffe");
+        BouteilleBiere biere1 = new BouteilleBiere("Cuvée des Trolls", 7.0, "Dubuisson");
+        
+        BouteilleBiere biere3 = new BouteilleBiere("Heineken", 5.0, "Heineken International");
+        BouteilleBiere biere4 = new BouteilleBiere("Chimay Bleue", 9.0, "Abbaye de Scourmont");
 
+        // Décapsuler quelques-unes
+        biere1.decapsuler();
+        biere3.decapsuler();
+
+        // Affichage à l’écran avec System.out.println()
+        System.out.println("\n--- État des bières ---");
+        System.out.println(biere1);
+        System.out.println(biere2);
+        System.out.println(biere3);
+        System.out.println(biere4);
     }
-    }
+}
+
+    
+    
