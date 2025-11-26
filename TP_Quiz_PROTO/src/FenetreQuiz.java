@@ -14,36 +14,49 @@ public class FenetreQuiz extends javax.swing.JFrame {
     /**
      * Creates new form FenetreQuiz
      */
-    public FenetreQuiz() {
+ private question[] questions;
+ private int indexQuestionCourante = 0;
+ private scores =0;
+ 
+ public FenetreQuiz() {
         initComponents();
-        question q1 = new question(
-        "Quelle est la capitale de la France ?",
-        "Londres",
-        "Berlin",
-        "Paris",
-        "Madrid",
-        3
-    );
+       
 
-    question q2 = new question(
-        "2 + 2 = ?",
-        "3",
-        "4",
-        "5",
-        "6",
-        2
-    );
-    question q3 = new question(
-    "Quelle couleur obtient-on en mélangeant bleu et jaune ?",
-    "Rouge",
-    "Vert",
-    "Orange",
-    "Violet",
-    2 // 2 = "Vert"
-    );
-
+    questions = new question[] {
+        new question("Capitale de la France ?",
+                     "Londres", "Berlin", "Paris", "Madrid", 3),
+        new question("2 + 2 = ?",
+                     "3", "4", "5", "6", 2),
+        new question("Couleur du ciel ?",
+                     "Vert", "Bleu", "Rouge", "Jaune", 2),
+            
+        new question("Ta mere a 4 enfants :Lundi ,mardi mercredi et ? ",
+                     "toi", "jeudi", "Mercredi adams", "Githuub",1),
+        new question ("Quelle est la meilleure matiere ? ",
+                      "maths", "physique","Culture numerique","droit",3),
+       
+      
+                   };
+    question q = questions[indexQuestionCourante];
+    Question.setText(q.getintitule());
+    Butrep1.setText(q.get1());
+    butrep2.setText(q.get2());
+    butrep3.setText(q.get3());
+    butrep4.setText(q.get4());
     
-}
+ }
+    
+
+private void verifrep(){
+    question q = tabquestions[indexQuestionCourante];
+    
+    
+
+    // Réactive les 4 boutons
+   
+    }
+
+
               
     
 
@@ -63,8 +76,7 @@ public class FenetreQuiz extends javax.swing.JFrame {
         butrep2 = new javax.swing.JButton();
         butrep3 = new javax.swing.JButton();
         butrep4 = new javax.swing.JButton();
-        succes = new javax.swing.JLabel();
-        echec = new javax.swing.JLabel();
+        feedback = new javax.swing.JLabel();
         score = new javax.swing.JLabel();
         questsuiv = new javax.swing.JButton();
 
@@ -73,6 +85,11 @@ public class FenetreQuiz extends javax.swing.JFrame {
         Question.setText("jLabel1");
 
         Butrep1.setText("jButton1");
+        Butrep1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Butrep1ActionPerformed(evt);
+            }
+        });
 
         butrep2.setText("jButton2");
 
@@ -80,9 +97,7 @@ public class FenetreQuiz extends javax.swing.JFrame {
 
         butrep4.setText("jButton4");
 
-        succes.setText("jLabel1");
-
-        echec.setText("jLabel1");
+        feedback.setText("jLabel1");
 
         score.setText("jLabel1");
 
@@ -92,10 +107,6 @@ public class FenetreQuiz extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(162, 162, 162)
-                .addComponent(Question, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
@@ -106,10 +117,7 @@ public class FenetreQuiz extends javax.swing.JFrame {
                         .addComponent(Butrep1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(succes, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(89, 89, 89)
-                                .addComponent(echec, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(feedback, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(butrep2)
                                 .addGap(26, 26, 26)
@@ -119,6 +127,10 @@ public class FenetreQuiz extends javax.swing.JFrame {
                                     .addComponent(questsuiv)
                                     .addComponent(butrep4))))))
                 .addGap(21, 21, 21))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(162, 162, 162)
+                .addComponent(Question, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -127,11 +139,9 @@ public class FenetreQuiz extends javax.swing.JFrame {
                 .addComponent(score)
                 .addGap(18, 18, 18)
                 .addComponent(Question)
-                .addGap(32, 32, 32)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(echec, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(succes))
-                .addGap(35, 35, 35)
+                .addGap(38, 38, 38)
+                .addComponent(feedback)
+                .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Butrep1)
                     .addComponent(butrep2)
@@ -144,6 +154,10 @@ public class FenetreQuiz extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void Butrep1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Butrep1ActionPerformed
+       verif_rep(3);
+    }//GEN-LAST:event_Butrep1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -176,9 +190,13 @@ public class FenetreQuiz extends javax.swing.JFrame {
     private javax.swing.JButton butrep2;
     private javax.swing.JButton butrep3;
     private javax.swing.JButton butrep4;
-    private javax.swing.JLabel echec;
+    private javax.swing.JLabel feedback;
     private javax.swing.JButton questsuiv;
     private javax.swing.JLabel score;
-    private javax.swing.JLabel succes;
     // End of variables declaration//GEN-END:variables
+
+
 }
+
+
+
