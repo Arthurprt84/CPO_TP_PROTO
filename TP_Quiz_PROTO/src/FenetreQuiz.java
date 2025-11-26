@@ -14,54 +14,127 @@ public class FenetreQuiz extends javax.swing.JFrame {
     /**
      * Creates new form FenetreQuiz
      */
- private question[] questions;
- private int indexQuestionCourante = 0;
- private scores =0;
- 
- public FenetreQuiz() {
-        initComponents();
-       
 
+private question[] questions;
+private int indexQuestionCourante = 0;
+private int scores = 0;
+
+
+
+
+public FenetreQuiz() {
+    initComponents();
+    
+
+
+    
     questions = new question[] {
         new question("Capitale de la France ?",
                      "Londres", "Berlin", "Paris", "Madrid", 3),
+
         new question("2 + 2 = ?",
                      "3", "4", "5", "6", 2),
+
         new question("Couleur du ciel ?",
-                     "Vert", "Bleu", "Rouge", "Jaune", 2),
-            
-        new question("Ta mere a 4 enfants :Lundi ,mardi mercredi et ? ",
-                     "toi", "jeudi", "Mercredi adams", "Githuub",1),
-        new question ("Quelle est la meilleure matiere ? ",
-                      "maths", "physique","Culture numerique","droit",3),
-       
-      
-                   };
+                     "Vert", "Bleu", "Rouge", "Jaune",2 ),
+
+        new question("Ta mère a 4 enfants : Lundi, Mardi, Mercredi et ?",
+                     "Toi", "Jeudi", "Mercredi Adams", "Github", 1),
+
+        new question("Quelle est la meilleure matière ?",
+                     "Maths", "Physique", "Culture Numérique", "Droit", 3)
+    };
+
+    
+    afficherQuestionCourante();
+}
+
+
+
+
+private void afficherQuestionCourante() {
+
+   
     question q = questions[indexQuestionCourante];
-    Question.setText(q.getintitule());
+
+   
+    question.setText(q.getintitule());
+
+   
     Butrep1.setText(q.get1());
     butrep2.setText(q.get2());
     butrep3.setText(q.get3());
     butrep4.setText(q.get4());
+
     
- }
+    Butrep1.setEnabled(true);
+    butrep2.setEnabled(true);
+    butrep3.setEnabled(true);
+    butrep4.setEnabled(true);
+}
+
+    
+ 
     
 
-private void verifrep(){
-    question q = tabquestions[indexQuestionCourante];
-    
-    
+private void verifierReponse(int choix) {
 
-    // Réactive les 4 boutons
-   
+    
+    question q = questions[indexQuestionCourante];
+
+    
+    if (choix == q.getreponse()) {
+        scores++;  
+        feedback.setText("Bonne réponse !");
+        score.setText("Score : " + scores);
+    } else {
+        feedback.setText("Mauvaise réponse...");
     }
 
+   
+    Butrep1.setEnabled(false);
+    butrep2.setEnabled(false);
+    butrep3.setEnabled(false);
+    butrep4.setEnabled(false);
+}
+private void passerQuestionSuivante() {
 
-              
+   
+    indexQuestionCourante++;
+
     
+    if (indexQuestionCourante >= questions.length) {
+
+     
+        indexQuestionCourante = questions.length - 1;
 
     
+        feedback.setText("Quiz terminé ! Score : " + scores + " / " + questions.length);
 
+        
+        Butrep1.setEnabled(false);
+        butrep2.setEnabled(false);
+        butrep3.setEnabled(false);
+        butrep4.setEnabled(false);
+
+        
+        questsuiv.setEnabled(false);
+
+    } else {
+     
+        feedback.setText("");
+
+     
+        afficherQuestionCourante();
+    }
+
+}
+
+
+
+
+    
+ 
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -71,7 +144,7 @@ private void verifrep(){
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        Question = new javax.swing.JLabel();
+        question = new javax.swing.JLabel();
         Butrep1 = new javax.swing.JButton();
         butrep2 = new javax.swing.JButton();
         butrep3 = new javax.swing.JButton();
@@ -82,7 +155,7 @@ private void verifrep(){
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        Question.setText("jLabel1");
+        question.setText("jLabel1");
 
         Butrep1.setText("jButton1");
         Butrep1.addActionListener(new java.awt.event.ActionListener() {
@@ -92,45 +165,65 @@ private void verifrep(){
         });
 
         butrep2.setText("jButton2");
+        butrep2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butrep2ActionPerformed(evt);
+            }
+        });
 
         butrep3.setText("jButton3");
+        butrep3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butrep3ActionPerformed(evt);
+            }
+        });
 
         butrep4.setText("jButton4");
+        butrep4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butrep4ActionPerformed(evt);
+            }
+        });
 
-        feedback.setText("jLabel1");
+        feedback.setText(" ");
 
-        score.setText("jLabel1");
+        score.setText("score");
 
-        questsuiv.setText("jButton1");
+        questsuiv.setText("suivant");
+        questsuiv.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                questsuivActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(14, 14, 14)
+                .addComponent(Butrep1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(score, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(Butrep1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(butrep2)
+                        .addGap(34, 34, 34)
+                        .addComponent(butrep3)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(feedback, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(butrep2)
-                                .addGap(26, 26, 26)
-                                .addComponent(butrep3)
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(questsuiv)
-                                    .addComponent(butrep4))))))
-                .addGap(21, 21, 21))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(162, 162, 162)
-                .addComponent(Question, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(questsuiv)
+                            .addComponent(butrep4)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(question, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(feedback, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(score, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -138,10 +231,10 @@ private void verifrep(){
                 .addGap(30, 30, 30)
                 .addComponent(score)
                 .addGap(18, 18, 18)
-                .addComponent(Question)
-                .addGap(38, 38, 38)
-                .addComponent(feedback)
+                .addComponent(question)
                 .addGap(42, 42, 42)
+                .addComponent(feedback)
+                .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Butrep1)
                     .addComponent(butrep2)
@@ -156,8 +249,27 @@ private void verifrep(){
     }// </editor-fold>//GEN-END:initComponents
 
     private void Butrep1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Butrep1ActionPerformed
-       verif_rep(3);
+      verifierReponse(1);
     }//GEN-LAST:event_Butrep1ActionPerformed
+
+    private void butrep2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butrep2ActionPerformed
+       verifierReponse(2);
+    }//GEN-LAST:event_butrep2ActionPerformed
+
+    private void butrep3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butrep3ActionPerformed
+       verifierReponse(3);
+    }//GEN-LAST:event_butrep3ActionPerformed
+
+    private void butrep4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butrep4ActionPerformed
+        verifierReponse(4);
+     
+    }//GEN-LAST:event_butrep4ActionPerformed
+
+    private void questsuivActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_questsuivActionPerformed
+       passerQuestionSuivante();
+
+
+    }//GEN-LAST:event_questsuivActionPerformed
 
     /**
      * @param args the command line arguments
@@ -186,17 +298,16 @@ private void verifrep(){
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Butrep1;
-    private javax.swing.JLabel Question;
     private javax.swing.JButton butrep2;
     private javax.swing.JButton butrep3;
     private javax.swing.JButton butrep4;
     private javax.swing.JLabel feedback;
+    private javax.swing.JLabel question;
     private javax.swing.JButton questsuiv;
     private javax.swing.JLabel score;
     // End of variables declaration//GEN-END:variables
 
 
 }
-
 
 
