@@ -67,9 +67,19 @@ public class mini_projet1 extends javax.swing.JFrame {
             getContentPane().add(up_chiffre_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 80, 30));
 
             up_chiffre_2.setText("/\\");
+                up_chiffre_2.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        up_chiffre_2ActionPerformed(evt);
+                    }
+                });
                 getContentPane().add(up_chiffre_2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 80, 80, 30));
 
                 up_chiffre_3.setText("/\\");
+                    up_chiffre_3.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                            up_chiffre_3ActionPerformed(evt);
+                        }
+                    });
                     getContentPane().add(up_chiffre_3, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 80, 80, 30));
 
                     up_chiffre_4.setText("/\\");
@@ -117,9 +127,19 @@ public class mini_projet1 extends javax.swing.JFrame {
                         getContentPane().add(down_chiffre_2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 220, 80, 30));
 
                         down_chiffre_3.setText("\\/");
+                        down_chiffre_3.addActionListener(new java.awt.event.ActionListener() {
+                            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                down_chiffre_3ActionPerformed(evt);
+                            }
+                        });
                         getContentPane().add(down_chiffre_3, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 220, 80, 30));
 
                         down_chiffre_4.setText("\\/");
+                        down_chiffre_4.addActionListener(new java.awt.event.ActionListener() {
+                            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                down_chiffre_4ActionPerformed(evt);
+                            }
+                        });
                         getContentPane().add(down_chiffre_4, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 220, 80, 30));
 
                         bouton_test.setText("Tester");
@@ -165,24 +185,76 @@ public class mini_projet1 extends javax.swing.JFrame {
                     }// </editor-fold>//GEN-END:initComponents
 
     private void up_chiffre_4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_up_chiffre_4ActionPerformed
-        // TODO add your handling code here:
+        int val = Integer.parseInt(texte_chiffre_4.getText());
+    val = (val + 1) % 10;
+    texte_chiffre_4.setText(String.valueOf(val));
     }//GEN-LAST:event_up_chiffre_4ActionPerformed
 
     private void up_chiffre_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_up_chiffre_1ActionPerformed
-        // TODO add your handling code here:
+        int val = Integer.parseInt(texte_chiffre_1.getText());
+    val = (val + 1) % 10; 
+    texte_chiffre_1.setText(String.valueOf(val));
     }//GEN-LAST:event_up_chiffre_1ActionPerformed
 
     private void down_chiffre_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_down_chiffre_1ActionPerformed
-        // TODO add your handling code here:
+        int val = Integer.parseInt(texte_chiffre_1.getText());
+    val = (val + 9) % 10;
+    texte_chiffre_1.setText(String.valueOf(val));
     }//GEN-LAST:event_down_chiffre_1ActionPerformed
 
     private void down_chiffre_2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_down_chiffre_2ActionPerformed
-        // TODO add your handling code here:
+        int val = Integer.parseInt(texte_chiffre_2.getText());
+    val = (val + 9) % 10;
+    texte_chiffre_2.setText(String.valueOf(val));
     }//GEN-LAST:event_down_chiffre_2ActionPerformed
 
     private void bouton_testActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bouton_testActionPerformed
-        // TODO add your handling code here:
+        int[] proposition = new int[]{
+        Integer.parseInt(texte_chiffre_1.getText()),
+        Integer.parseInt(texte_chiffre_2.getText()),
+        Integer.parseInt(texte_chiffre_3.getText()),
+        Integer.parseInt(texte_chiffre_4.getText())
+    };
+
+    int[] res = jeu.testerCombinaison(proposition);
+    nb_exact.setText(String.valueOf(res[0]));
+    nb_haut.setText(String.valueOf(res[1]));
+    nb_bas.setText(String.valueOf(res[2]));
+    nb_tentative.setText(jeu.getTentativeActuelle() + " / " + jeu.getMaxTentatives());
+
+    if (jeu.aGagne(proposition)) {
+        JOptionPane.showMessageDialog(this, "Bravo ! Vous avez trouvé le code !");
+        bouton_test.setEnabled(false);
+    } else if (jeu.estTermine()) {
+        JOptionPane.showMessageDialog(this, "Perdu. Code : " + afficherCode(jeu.getCodeSecret()));
+        bouton_test.setEnabled(false);
+    }
+
     }//GEN-LAST:event_bouton_testActionPerformed
+
+    private void up_chiffre_3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_up_chiffre_3ActionPerformed
+        int val = Integer.parseInt(texte_chiffre_3.getText());
+    val = (val + 1) % 10;
+    texte_chiffre_3.setText(String.valueOf(val));
+    }//GEN-LAST:event_up_chiffre_3ActionPerformed
+
+    private void up_chiffre_2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_up_chiffre_2ActionPerformed
+        int val = Integer.parseInt(texte_chiffre_3.getText());
+    val = (val + 1) % 10;
+    texte_chiffre_3.setText(String.valueOf(val));
+    }//GEN-LAST:event_up_chiffre_2ActionPerformed
+
+    private void down_chiffre_3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_down_chiffre_3ActionPerformed
+        int val = Integer.parseInt(texte_chiffre_3.getText());
+    val = (val + 9) % 10;
+    texte_chiffre_3.setText(String.valueOf(val));
+    }//GEN-LAST:event_down_chiffre_3ActionPerformed
+
+    private void down_chiffre_4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_down_chiffre_4ActionPerformed
+       int val = Integer.parseInt(texte_chiffre_4.getText());
+    val = (val + 9) % 10;
+    texte_chiffre_4.setText(String.valueOf(val));
+    }//GEN-LAST:event_down_chiffre_4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -234,4 +306,5 @@ public class mini_projet1 extends javax.swing.JFrame {
     private javax.swing.JButton up_chiffre_3;
     private javax.swing.JButton up_chiffre_4;
     // End of variables declaration//GEN-END:variables
+
 }
