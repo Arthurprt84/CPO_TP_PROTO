@@ -64,6 +64,8 @@ public class mini_projet1 extends javax.swing.JFrame {
         nb_tentative = new javax.swing.JLabel();
         texte_tentative = new javax.swing.JLabel();
         bouton_reco = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        Zone_historique = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -165,22 +167,22 @@ public class mini_projet1 extends javax.swing.JFrame {
                         getContentPane().add(bouton_test, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 140, 100, 40));
 
                         texte_exact.setText("Nombre de chiffres exactes : ");
-                        getContentPane().add(texte_exact, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, 170, -1));
+                        getContentPane().add(texte_exact, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 170, -1));
 
                         nb_exact.setText("0");
-                        getContentPane().add(nb_exact, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 300, -1, -1));
+                        getContentPane().add(nb_exact, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 280, -1, -1));
 
                         texte_haut.setText("Nombre de chiffres trop hauts : ");
-                        getContentPane().add(texte_haut, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, -1, -1));
+                        getContentPane().add(texte_haut, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, -1, -1));
 
                         nb_haut.setText("0");
-                        getContentPane().add(nb_haut, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 330, -1, -1));
+                        getContentPane().add(nb_haut, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 310, -1, -1));
 
                         texte_bas.setText("Nombre de chiffres trop bas : ");
-                        getContentPane().add(texte_bas, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, -1, -1));
+                        getContentPane().add(texte_bas, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, -1, -1));
 
                         nb_bas.setText("0");
-                        getContentPane().add(nb_bas, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 360, -1, -1));
+                        getContentPane().add(nb_bas, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 340, -1, -1));
 
                         nb_tentative.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
                         nb_tentative.setText("0 / 5");
@@ -199,6 +201,13 @@ public class mini_projet1 extends javax.swing.JFrame {
                             }
                         });
                         getContentPane().add(bouton_reco, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 410, -1, -1));
+
+                        Zone_historique.setColumns(20);
+                        Zone_historique.setRows(5);
+                        Zone_historique.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+                        jScrollPane1.setViewportView(Zone_historique);
+
+                        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, 370, 80));
 
                         pack();
                     }// </editor-fold>//GEN-END:initComponents
@@ -247,7 +256,20 @@ public class mini_projet1 extends javax.swing.JFrame {
     } else if (jeu.estTermine()) {
         JOptionPane.showMessageDialog(this, "Perdu. Code : " + afficherCode(jeu.getCodeSecret()));
         bouton_test.setEnabled(false);
+       
     }
+String combinaison = texte_chiffre_1.getText() + " "
+                   + texte_chiffre_2.getText() + " "
+                   + texte_chiffre_3.getText() + " "
+                   + texte_chiffre_4.getText();
+
+String ligne = "Essai " + jeu.getTentativeActuelle() + " : "
+             + combinaison + " → "
+             + res[0] + " exact, "
+             + res[1] + " trop haut, "
+             + res[2] + " trop bas\n";
+
+Zone_historique.append(ligne);
 
     }//GEN-LAST:event_bouton_testActionPerformed
 
@@ -291,7 +313,8 @@ public class mini_projet1 extends javax.swing.JFrame {
 
     bouton_test.setEnabled(true);
 
-        // TODO add your handling code here:
+    Zone_historique.setText("");
+    
     }//GEN-LAST:event_bouton_recoActionPerformed
 
     /**
@@ -320,12 +343,14 @@ public class mini_projet1 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea Zone_historique;
     private javax.swing.JButton bouton_reco;
     private javax.swing.JButton bouton_test;
     private javax.swing.JButton down_chiffre_1;
     private javax.swing.JButton down_chiffre_2;
     private javax.swing.JButton down_chiffre_3;
     private javax.swing.JButton down_chiffre_4;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel nb_bas;
     private javax.swing.JLabel nb_exact;
     private javax.swing.JLabel nb_haut;
