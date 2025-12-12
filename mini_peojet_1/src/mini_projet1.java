@@ -1,3 +1,6 @@
+
+import javax.swing.JOptionPane;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -11,12 +14,23 @@ public class mini_projet1 extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(mini_projet1.class.getName());
 
+
     /**
      * Creates new form mini_projet1
      */
+    private final Cadenas jeu = new Cadenas();
+    
     public mini_projet1() {
+        
         initComponents();
-    }
+
+    texte_chiffre_1.setText("0");
+    texte_chiffre_2.setText("0");
+    texte_chiffre_3.setText("0");
+    texte_chiffre_4.setText("0");
+}
+
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -179,6 +193,11 @@ public class mini_projet1 extends javax.swing.JFrame {
                         getContentPane().add(texte_tentative, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 280, 80, 40));
 
                         bouton_reco.setText("Recommencer");
+                        bouton_reco.addActionListener(new java.awt.event.ActionListener() {
+                            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                bouton_recoActionPerformed(evt);
+                            }
+                        });
                         getContentPane().add(bouton_reco, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 410, -1, -1));
 
                         pack();
@@ -239,9 +258,9 @@ public class mini_projet1 extends javax.swing.JFrame {
     }//GEN-LAST:event_up_chiffre_3ActionPerformed
 
     private void up_chiffre_2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_up_chiffre_2ActionPerformed
-        int val = Integer.parseInt(texte_chiffre_3.getText());
+        int val = Integer.parseInt(texte_chiffre_2.getText());
     val = (val + 1) % 10;
-    texte_chiffre_3.setText(String.valueOf(val));
+    texte_chiffre_2.setText(String.valueOf(val));
     }//GEN-LAST:event_up_chiffre_2ActionPerformed
 
     private void down_chiffre_3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_down_chiffre_3ActionPerformed
@@ -255,6 +274,25 @@ public class mini_projet1 extends javax.swing.JFrame {
     val = (val + 9) % 10;
     texte_chiffre_4.setText(String.valueOf(val));
     }//GEN-LAST:event_down_chiffre_4ActionPerformed
+
+    private void bouton_recoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bouton_recoActionPerformed
+
+    jeu.reinitialiser();
+
+    texte_chiffre_1.setText("0");
+    texte_chiffre_2.setText("0");
+    texte_chiffre_3.setText("0");
+    texte_chiffre_4.setText("0");
+
+    nb_exact.setText("0");
+    nb_haut.setText("0");
+    nb_bas.setText("0");
+    nb_tentative.setText("0 / 5");
+
+    bouton_test.setEnabled(true);
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bouton_recoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -306,5 +344,13 @@ public class mini_projet1 extends javax.swing.JFrame {
     private javax.swing.JButton up_chiffre_3;
     private javax.swing.JButton up_chiffre_4;
     // End of variables declaration//GEN-END:variables
+
+    private String afficherCode(int[] code) {
+    StringBuilder sb = new StringBuilder();
+    for (int c : code) {
+        sb.append(c);
+    }
+    return sb.toString();
+}
 
 }
