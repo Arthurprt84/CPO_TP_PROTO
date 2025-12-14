@@ -1,5 +1,8 @@
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -23,11 +26,21 @@ public class mini_projet1 extends javax.swing.JFrame {
     public mini_projet1() {
         
         initComponents();
+timer = new Timer(1000, new ActionListener() {
+    public void actionPerformed(ActionEvent e) {
+        elapsedSeconds++;
+        int minutes = elapsedSeconds / 60;
+        int seconds = elapsedSeconds % 60;
+        label_chrono.setText(String.format("%02d:%02d", minutes, seconds));
+    }
+});
+timer.start();
 
     texte_chiffre_1.setText("0");
     texte_chiffre_2.setText("0");
     texte_chiffre_3.setText("0");
     texte_chiffre_4.setText("0");
+    
 }
 
     
@@ -66,13 +79,14 @@ public class mini_projet1 extends javax.swing.JFrame {
         bouton_reco = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         Zone_historique = new javax.swing.JTextArea();
+        label_chrono = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         texte_intro.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         texte_intro.setText("Trouvez le code en moins de 5 tentatives ");
-        getContentPane().add(texte_intro, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, 230, 20));
+        getContentPane().add(texte_intro, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 410, 40));
 
         up_chiffre_1.setText("/\\");
             up_chiffre_1.addActionListener(new java.awt.event.ActionListener() {
@@ -187,12 +201,12 @@ public class mini_projet1 extends javax.swing.JFrame {
                         nb_tentative.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
                         nb_tentative.setText("0 / 5");
                         nb_tentative.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-                        getContentPane().add(nb_tentative, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 330, 50, 40));
+                        getContentPane().add(nb_tentative, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 320, 50, 40));
 
                         texte_tentative.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
                         texte_tentative.setText("Tentatives");
                         texte_tentative.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-                        getContentPane().add(texte_tentative, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 280, 80, 40));
+                        getContentPane().add(texte_tentative, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 270, 80, 40));
 
                         bouton_reco.setText("Recommencer");
                         bouton_reco.addActionListener(new java.awt.event.ActionListener() {
@@ -200,14 +214,17 @@ public class mini_projet1 extends javax.swing.JFrame {
                                 bouton_recoActionPerformed(evt);
                             }
                         });
-                        getContentPane().add(bouton_reco, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 410, -1, -1));
+                        getContentPane().add(bouton_reco, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 400, -1, -1));
 
                         Zone_historique.setColumns(20);
                         Zone_historique.setRows(5);
                         Zone_historique.setBorder(javax.swing.BorderFactory.createEtchedBorder());
                         jScrollPane1.setViewportView(Zone_historique);
 
-                        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, 370, 80));
+                        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 430, 370, 80));
+
+                        label_chrono.setText("00:00");
+                        getContentPane().add(label_chrono, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 50, 80, 40));
 
                         pack();
                     }// </editor-fold>//GEN-END:initComponents
@@ -249,12 +266,21 @@ public class mini_projet1 extends javax.swing.JFrame {
     nb_haut.setText(String.valueOf(res[1]));
     nb_bas.setText(String.valueOf(res[2]));
     nb_tentative.setText(jeu.getTentativeActuelle() + " / " + jeu.getMaxTentatives());
+timer.stop();
+int minutes = elapsedSeconds / 60;
+int seconds = elapsedSeconds % 60;
+String tempsFinal = String.format("%02d:%02d", minutes, seconds);
 
     if (jeu.aGagne(proposition)) {
-        JOptionPane.showMessageDialog(this, "Bravo ! Vous avez trouvé le code !");
+        
+        JOptionPane.showMessageDialog(this, "Bravo ! Vous avez trouvé le code en " + tempsFinal);
+
         bouton_test.setEnabled(false);
     } else if (jeu.estTermine()) {
-        JOptionPane.showMessageDialog(this, "Perdu. Code : " + afficherCode(jeu.getCodeSecret()));
+        
+        JOptionPane.showMessageDialog(this, "Perdu. Le code était : " + afficherCode(jeu.getCodeSecret()) + "\nTemps : " + tempsFinal);
+    bouton_test.setEnabled(false);
+
         bouton_test.setEnabled(false);
        
     }
@@ -338,9 +364,13 @@ Zone_historique.append(ligne);
         }
         //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new mini_projet1().setVisible(true));
+        
+      
+    java.awt.EventQueue.invokeLater(() -> new Accueil().setVisible(true));
+
+   
     }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea Zone_historique;
@@ -351,6 +381,7 @@ Zone_historique.append(ligne);
     private javax.swing.JButton down_chiffre_3;
     private javax.swing.JButton down_chiffre_4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel label_chrono;
     private javax.swing.JLabel nb_bas;
     private javax.swing.JLabel nb_exact;
     private javax.swing.JLabel nb_haut;
@@ -377,5 +408,7 @@ Zone_historique.append(ligne);
     }
     return sb.toString();
 }
+private Timer timer;
+private int elapsedSeconds = 0;
 
 }
