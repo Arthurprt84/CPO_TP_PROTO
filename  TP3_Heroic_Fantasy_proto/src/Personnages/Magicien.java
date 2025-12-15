@@ -12,11 +12,10 @@ public class Magicien extends Personnage {
     private boolean confirme;
     private static int nbMagiciens = 0;
 
-
     public Magicien(String nom, int niveauVie, boolean confirme) {
         super(nom, niveauVie);
         this.confirme = confirme;
-        nbMagiciens++; 
+        nbMagiciens++;
     }
 
     public void setConfirme(boolean confirme) {
@@ -24,18 +23,46 @@ public class Magicien extends Personnage {
     }
 
     public static int getNbMagiciens() {
-    return nbMagiciens;
-}
+        return nbMagiciens;
+    }
 
     @Override
     public int nbArmesDePredilection() {
         int c = 0;
-        for (Arme a : inventaire) {   
+        for (Arme a : inventaire) {
             if (a instanceof Baton) {
                 c++;
             }
         }
         return c;
+    }
+
+    @Override
+    public void attaquer(Personnage cible) {
+        if (armeEnMain == null) {
+            System.out.println(nom + " n’a pas d’arme pour attaquer !");
+            return;
+        }
+
+        int degats = armeEnMain.getNiveauAttaque();
+
+        // Magicien + bâton → dégâts * âge du bâton + fatigue
+        if (armeEnMain instanceof Baton) {
+            Baton b = (Baton) armeEnMain;
+            degats *= b.getAge();
+            seFatiguer();
+        }
+
+        // Magicien confirmé → dégâts / 2
+        if (confirme) {
+            degats /= 2;
+        }
+
+        System.out.println(nom + " attaque " + cible.getNom()
+                + " avec " + armeEnMain.getNom()
+                + " et inflige " + degats + " points de dégâts.");
+
+        cible.estAttaque(degats);
     }
 
     @Override

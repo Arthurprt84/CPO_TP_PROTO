@@ -46,10 +46,17 @@ public class Guerrier extends Personnage {
 public static int getNbGuerriers() {
     return nbGuerriers;}
 
+ public void attaquer(Personnage cible) {
+        System.out.println(nom + " attaque " + cible.getNom() + " !");
+        cible.estAttaque(30);
+    }
     @Override
     public String toString() {
         String statut = aCheval ? "à cheval" : "à pied";
         return "Guerrier - " + super.toString() + ", " + statut;
     
     }
+ 
 }
+
+

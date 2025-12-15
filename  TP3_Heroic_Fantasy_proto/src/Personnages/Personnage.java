@@ -6,22 +6,23 @@ package Personnages;
 
 import java.util.ArrayList;
 import Armes.Arme;
+import tp3_heroic_fantasy_proto.etreVivant;
 
 
 /**
  *
  * @author arthu
  */
-public abstract class Personnage {
+
+
+public abstract class Personnage implements etreVivant {
 
     protected String nom;
     protected int niveauVie;
-    
-    protected static int nbPersonnages = 0;
-    
-    protected ArrayList<Arme> inventaire = new ArrayList<Arme>();
 
-   
+    protected static int nbPersonnages = 0;
+
+    protected ArrayList<Arme> inventaire = new ArrayList<Arme>();
     protected Arme armeEnMain = null;
 
     public Personnage(String nom, int niveauVie) {
@@ -30,44 +31,40 @@ public abstract class Personnage {
         nbPersonnages++;
     }
 
-    public int getNiveauVie() {
-        return niveauVie;
-    }
-        
-    public static int getNbPersonnages() {
-        return nbPersonnages;
-    }
-
     public String getNom() {
         return nom;
     }
 
-   
+    public int getNiveauVie() {
+        return niveauVie;
+    }
+
+    public static int getNbPersonnages() {
+        return nbPersonnages;
+    }
+
+    // ajouter une arme (max 5)
     public void ajouterArme(Arme a) {
         if (inventaire.size() < 5) {
             inventaire.add(a);
-            System.out.println(nom + " obtient l’arme " + a.getNom());
         } else {
-            System.out.println(nom + " ne peut pas avoir plus de 5 armes !");
+            System.out.println(nom + " ne peut pas porter plus de 5 armes.");
         }
     }
 
-    
     public Arme getArmeEnMain() {
         return armeEnMain;
     }
 
-  
+    // équiper une arme par son nom
     public void equiperArme(String nomArme) {
         Arme trouvee = null;
-
         for (Arme a : inventaire) {
             if (a.getNom().equals(nomArme)) {
                 trouvee = a;
                 break;
             }
         }
-
         if (trouvee != null) {
             armeEnMain = trouvee;
             System.out.println(nom + " s’équipe de " + nomArme);
@@ -76,7 +73,28 @@ public abstract class Personnage {
         }
     }
 
-    
+    // interface etreVivant
+    @Override
+    public void seFatiguer() {
+        niveauVie -= 10;
+        if (niveauVie < 0) niveauVie = 0;
+    }
+
+    @Override
+    public boolean estVivant() {
+        return niveauVie > 0;
+    }
+
+    @Override
+    public void estAttaque(int points) {
+        niveauVie -= points;
+        if (niveauVie < 0) niveauVie = 0;
+    }
+
+    // à implémenter dans Magicien / Guerrier
+    public abstract int nbArmesDePredilection();
+    public abstract void attaquer(Personnage cible);
+
     @Override
     public String toString() {
         String s = "Nom : " + nom + ", niveau de vie : " + niveauVie;
@@ -87,9 +105,4 @@ public abstract class Personnage {
         }
         return s;
     }
-public abstract int nbArmesDePredilection();
-
 }
-
-
-
