@@ -30,7 +30,7 @@ public class TP0_calculette {
         System.out.print("Entrez l'operande2 (entier) : ");
         int operande2 = sc.nextInt();
 
-        System.out.println(); // ligne vide pour la lisibilité
+        System.out.println(); 
 
         if (operateur == 1) {
             System.out.println(operande1 + " + " + operande2 + " = " + (operande1 + operande2));
